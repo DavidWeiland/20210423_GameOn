@@ -21,7 +21,7 @@ function launchModal() {
 }
 
 // close modal event
-closeBtn.forEach((btn) => btn.addEventListener("click", closeModal));
+closeBtn.forEach((yoyo) => yoyo.addEventListener("click", closeModal));
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
@@ -38,26 +38,30 @@ function disableSubmit(disabled) {
 }
 */
 //validation des informations utilisateur
-const firstInput = document.querySelector("#first");
-const lastInput = document.querySelector("#last");
-const emailInput = document.querySelector("#email");
-var input = firstInput;
+const textControl = document.querySelectorAll(".text-control");
 
-
-input.addEventListener("change", function(e){
+textControl.forEach((input) => input.addEventListener("change", function(e){
   var value = e.target.value;
   var typeForm = e.target.type;
   function testInput(regex, chaine){
     var midstring;
     if (regex.test(chaine)) {
-      midstring = "Ce sont des lettres";
+      midstring = "  Bien renseigné";
     } else {
-      midstring = "Merci de ne renseigner que des lettres";
+      midstring = "  Mal renseigné";
     }
     alert(typeForm + midstring);
   }
-  testInput(/[A-Za-z]/,value);
-  //alert(value);
-});
+  switch (typeForm) {
+  case "text" : 
+    testInput(/[A-Za-z]/g,value);
+    break;
+  case "number" :
+    testInput(/[0-9]/,value);
+    break;
+  default :
+    alert("  Error : le type " + typeForm +  " n'est pas valide, veuillez contacter le DW")
+  }
+}));
 
 
