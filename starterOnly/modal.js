@@ -26,6 +26,7 @@ closeBtn.forEach((yoyo) => yoyo.addEventListener("click", closeModal));
 function closeModal() {
   modalbg.style.display = "none";
 }
+
 /*
 // activation bouton d'envoi du formulaire
 function disableSubmit(disabled) {
@@ -37,33 +38,28 @@ function disableSubmit(disabled) {
   }
 }
 */
+
 //validation des informations utilisateur
 const textControl = document.querySelectorAll(".text-control");
-var midstring=false;
+var validate =false;
 for (var i = 0; i < formData.length; i++) {
   formData[i].setAttribute("required",true);
+  formData[i].setAttribute("data-error","cet élément n'est pas renseigné correctement")
   textControl[i].setAttribute("data-compteur",i);
-  formData[i].addEventListener("change", function(e){
+  formData[i].addEventListener("input", function(e){
     var value = e.target.value;
     var typeForm = e.target.type;
-    //var idInput = e.target.id;
-    var iControl = e.target.dataCompteur;
+    var iControl = e.target.getAttribute("data-compteur");
     function testInput(regex, chaine){
       if (regex.test(chaine)) {
-        midstring=false;
-        //formData[iControl].removeAttribute("data-error","Caractères autorisés Aa-Zz et -");
-        //iControl++;
+        validate=true;
+        formData[iControl].removeAttribute("data-error","Caractères autorisés Aa-Zz et -")
+        formData[iControl].setAttribute("data-error-visible",false);
       } else {
-        midstring=true;
-        //formData[iControl].setAttribute("data-error","Caractères autorisés Aa-Zz et -");
-        alert("mal renseigné")//+ formData[i].hasAttribute(data-error));
-        
+        validate=false;
+        formData[iControl].setAttribute("data-error-visible",true);
       }
-      alert(typeForm + " " + value + " " + midstring + " " + dataCompteur);
     }
-    //(midstring) ? formData[iControl].setAttribute("data-error","Caractères autorisés Aa-Zz et -"):formData[iControl].removeAttribute("data-error","Caractères autorisés Aa-Zz et -");
-    
-    
     switch (typeForm) {
     case "text" : 
       testInput(/[A-Za-z -]{2,}/,value);
@@ -71,15 +67,14 @@ for (var i = 0; i < formData.length; i++) {
     case "email" :
       testInput(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,value);
       break;
-    case "date" :
+    //case "date" :
       //testInput(/[0-9]{2}[0-9]{2}[0-9]{4}/,value);
-      break;
+      //break;
     case "number" :
       testInput(/[0-9]/,value);
       break;
-  
     default :
-      alert("  Error : le type " + typeForm +  " n'est pas valide, veuillez contacter le DW")
+      //alert("  Error : le type " + typeForm +  " n'est pas valide, veuillez contacter le DW")
     }
   })
 };
