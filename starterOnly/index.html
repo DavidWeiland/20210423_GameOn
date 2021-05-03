@@ -59,7 +59,7 @@
             <form
               name="reserve"
               action="index.html"
-              method="get"
+              method="POST"
               onsubmit="return validate();"
             >
               <div
@@ -98,7 +98,7 @@
                 <label for="birthdate">Date de naissance</label><br>
                 <input
                   class="text-control"
-                  type="date"
+                  type="text"
                   id="birthdate"
                   name="birthdate"
                 /><br>
@@ -192,9 +192,10 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
+                  name="checkbox"
                   checked
                 />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
