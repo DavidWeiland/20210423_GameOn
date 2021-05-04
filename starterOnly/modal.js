@@ -29,17 +29,19 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-const btnSubmit = document.querySelector('.btn-submit');
-btnSubmit.setAttribute("disabled",true);
+//const btnSubmit = document.querySelector('.btn-submit');
 
 //validation des informations utilisateur
 const textControl = document.querySelectorAll(".text-control");
+for( var j = 0; j < textControl.length; j++){
+  textControl[j].setAttribute("data-compteur",j);
+}
 
+//Validation radio location
 const locationGame = document.querySelectorAll("input[type=radio]");
 const location1 = document.querySelector("#location1");
 location1.setAttribute("checked",true);
 
-//Validation radio location
 for(var k = 0; k < locationGame.length; k++) {
   locationGame[k].setAttribute("data-compt-loc",k)
   locationGame[k].addEventListener('change', function(event){
@@ -50,11 +52,11 @@ for(var k = 0; k < locationGame.length; k++) {
     locationGame[iControlLoc].removeAttribute("checked");
 })};
 
+//Validation checkbox Conditions d'utilisation
 const condition = document.querySelectorAll("input[type=checkbox");
 const checkbox1 = document.querySelector("#checkbox1");
 checkbox1.setAttribute("checked",true);
 
-//Validation checkbox Conditions d'utilisation
 for(var l = 0; l < condition.length; l++) {
   condition[l].setAttribute("data-compt-cond",l);
   condition[l].addEventListener('change', function(eventCondition){
@@ -62,13 +64,16 @@ for(var l = 0; l < condition.length; l++) {
     var checkedCondition = eventCondition.target.getAttribute("checked");
     if (!checkedCondition){
       condition[iControlCond].setAttribute("checked",true);
-      conditionValue = eventCondition.target.value; 
+      conditionValue = eventCondition.target.value;
+      condition[iControlCond].parentNode.removeAttribute("data-error")
+      condition[iControlCond].parentNode.setAttribute("data-error-visible",false);
     } else {
     condition[iControlCond].removeAttribute("checked");
-    conditionValue = ""; 
+    conditionValue = "";
+    condition[iControlCond].parentNode.setAttribute("data-error-visible",true);
+    condition[iControlCond].parentNode.setAttribute("data-error","Veuillez accepter les conditions d'utilisation");
 }})};
 
-var validation = false;
 var firstValue;
 var lastValue;
 var emailValue;
@@ -79,7 +84,6 @@ var conditionValue = checkbox1.value;
 
 //validation des entrées alphanumériques
 for (var i = 0; i < formData.length; i++) {
-  textControl[i].setAttribute("data-compteur",i);
   formData[i].addEventListener("change", function(e){
     var value = e.target.value;
     var idInput = e.target.id;
@@ -89,8 +93,6 @@ for (var i = 0; i < formData.length; i++) {
         if (regex.test(chaine)) {
           formData[iControl].removeAttribute("data-error")
           formData[iControl].setAttribute("data-error-visible",false);
-          btnSubmit.setAttribute("disabled",false);
-          btnSubmit.removeAttribute("disabled");
           switch (nameInput) {
             case "first" :
               firstValue = value;
@@ -109,7 +111,6 @@ for (var i = 0; i < formData.length; i++) {
               break;
             }
         } else {
-          btnSubmit.setAttribute("disabled",false);
           formData[iControl].setAttribute("data-error-visible",true);
           switch (nameInput) {
             case "first" :
@@ -156,7 +157,6 @@ for (var i = 0; i < formData.length; i++) {
 
 //Validation champs non-vide et envoi formulaire
 function validate(){
-  var string = "Super, vous êtes inscrit pour le prochain tournois"; 
   if (firstValue == null || firstValue == "" || firstValue == undefined){
     alert("Merci d'indiquer votre prénom");
     return false;
@@ -179,6 +179,9 @@ function validate(){
               alert("Merci d'accepter les conditions d'utilisation");
               return false;
               } else {
-            alert(string);
+            form.style.display = "none";
+            modalBody.innerHTML = "<p class='validation' style='height:640px; display:flex; flex-direction:column; justify-content:center;'>Merci !<br/><br/>Votre réservation a été envoyée</p><button class='btn-submit btn-close' value='Close'>Close</button>"
+            const closeBtnModal = document.querySelector(".btn-close");
+            closeBtnModal.addEventListener('click',closeModal);
             return true;
 }};
