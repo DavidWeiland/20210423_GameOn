@@ -29,33 +29,56 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-/*
-// activation bouton d'envoi du formulaire
-function disableSubmit(disabled) {
-  const submitBtn = document.querySelector('.btn-submit');
-  if (disabled) {
-    submitBtn.setAttribute("disabled", true);
-  } else {
-    submitBtn.removeAttribute("disabled");
-  }
-}
-*/
 const btnSubmit = document.querySelector('.btn-submit');
 btnSubmit.setAttribute("disabled",true);
 
 //validation des informations utilisateur
 const textControl = document.querySelectorAll(".text-control");
+
+const locationGame = document.querySelectorAll("input[type=radio]");
+const location1 = document.querySelector("#location1");
+location1.setAttribute("checked",true);
+
+//Validation radio location
+for(var k = 0; k < locationGame.length; k++) {
+  locationGame[k].setAttribute("data-compt-loc",k)
+  locationGame[k].addEventListener('change', function(event){
+    location1.removeAttribute("checked");
+    var iControlLoc = event.target.getAttribute("data-compt-loc");
+    locationGame[iControlLoc].setAttribute("checked",true);
+    locationValue = event.target.value;
+    locationGame[iControlLoc].removeAttribute("checked");
+})};
+
+const condition = document.querySelectorAll("input[type=checkbox");
+const checkbox1 = document.querySelector("#checkbox1");
+checkbox1.setAttribute("checked",true);
+
+//Validation checkbox Conditions d'utilisation
+for(var l = 0; l < condition.length; l++) {
+  condition[l].setAttribute("data-compt-cond",l);
+  condition[l].addEventListener('change', function(eventCondition){
+    var iControlCond = eventCondition.target.getAttribute("data-compt-cond");
+    var checkedCondition = eventCondition.target.getAttribute("checked");
+    if (!checkedCondition){
+      condition[iControlCond].setAttribute("checked",true);
+      conditionValue = eventCondition.target.value; 
+    } else {
+    condition[iControlCond].removeAttribute("checked");
+    conditionValue = ""; 
+}})};
+
 var validation = false;
 var firstValue;
 var lastValue;
 var emailValue;
 var birthdateValue;
 var quantityValue;
-var locationValue;
-var checkboxValue;
+var locationValue = location1.value;
+var conditionValue = checkbox1.value;
+
+//validation des entrées alphanumériques
 for (var i = 0; i < formData.length; i++) {
-  const checkedbox1 = document.querySelector("#checkbox1");
-  checkedbox1.setAttribute("required","required")
   textControl[i].setAttribute("data-compteur",i);
   formData[i].addEventListener("change", function(e){
     var value = e.target.value;
@@ -64,7 +87,6 @@ for (var i = 0; i < formData.length; i++) {
     var iControl = e.target.getAttribute("data-compteur");
       function testInput(regex, chaine){
         if (regex.test(chaine)) {
-          validation=true;
           formData[iControl].removeAttribute("data-error")
           formData[iControl].setAttribute("data-error-visible",false);
           btnSubmit.setAttribute("disabled",false);
@@ -85,38 +107,30 @@ for (var i = 0; i < formData.length; i++) {
             case "quantity" :
               quantityValue = value;
               break;
-            case "location" :
-              locationValue = value;
-              break;
-            case "checkbox" :
-              checkboxValue = value;
-              break;
             }
         } else {
-          validation=false;
           btnSubmit.setAttribute("disabled",false);
           formData[iControl].setAttribute("data-error-visible",true);
           switch (nameInput) {
             case "first" :
+              firstValue = "";
               formData[iControl].setAttribute("data-error","Veuillez entrer un minimum de 2 caractères (Aa-Zz)");
               break;
             case "last" :
+              lastValue = "";
               formData[iControl].setAttribute("data-error","Veuillez entrer un minimum de 2 caractères (Aa-Zz)");
               break;
             case "email" :
+              emailValue = "";
               formData[iControl].setAttribute("data-error","Veuillez renseigner un email valide (***@***.***)");
               break;
             case "birthdate" :
+              birthdateValue = "";
               formData[iControl].setAttribute("data-error","Veuillez indiquer votre date de naissance (jj/mm/aaaa)");
               break;
             case "quantity" :
+              quantityValue = "";
               formData[iControl].setAttribute("data-error","Veuillez indiquer un nombre entre 1 et 99");
-              break;
-            case "location" :
-              formData[iControl].setAttribute("data-error","Veuillez accepter les conditions d'utilisation");
-              break;
-            case "checkbox" :
-              formData[iControl].setAttribute("data-error","Veuillez accepter les conditions d'utilisation");
               break;
             default :
               formData[iControl].setAttribute("data-error","cet élément n'est pas renseigné correctement");
@@ -138,30 +152,33 @@ for (var i = 0; i < formData.length; i++) {
       testInput(/[1-9]{1,2}/,value);
       break;
     default:;
-    }
-    }
-)
-};
-  
+}})};
+
+//Validation champs non-vide et envoi formulaire
 function validate(){
-  var string = "cool, super"; 
+  var string = "Super, vous êtes inscrit pour le prochain tournois"; 
   if (firstValue == null || firstValue == "" || firstValue == undefined){
-    alert("first à  renseigner");
+    alert("Merci d'indiquer votre prénom");
     return false;
     } else if (lastValue == null || lastValue == "" || lastValue == undefined){
-      alert("last à  renseigner");
+      alert("Merci d'indiquer votre nom");
       return false;
       } else if (emailValue == null || emailValue == "" || emailValue == undefined){
-        alert("email à  renseigner");
+        alert("Merci d'indiquer votre email");
         return false;
         } else if (birthdateValue == null || birthdateValue == "" || birthdateValue == undefined){
-          alert("birthdate à renseigner");
+          alert("Merci d'indiquer votre date de naissance");
           return false;
           } else if (quantityValue == null || quantityValue == "" || quantityValue == undefined){
-            alert("quantity à renseigner");
+            alert("Merci d'indiquer le nombre de tournois auxquels vous avez participé");
             return false;
-          } else {
+          } else if (locationValue == null || locationValue == "" || locationValue == undefined){
+            alert("Merci d'indiquer la ville dans laquelle s'est déroulé le(s) tournois");
+            return false;
+            } else if (conditionValue == null || conditionValue == "" || conditionValue == undefined){
+              alert("Merci d'accepter les conditions d'utilisation");
+              return false;
+              } else {
             alert(string);
             return true;
-            }
-}
+}};
