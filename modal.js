@@ -123,7 +123,7 @@ for (var i = 0; i < formData.length; i++) {
                 formData[iControl].setAttribute("data-error", "Les tournois sont ouverts jusqu'à 99 ans")
                 formData[iControl].setAttribute("data-error-visible",true);
                 birthdateValue = "";
-              } else if (year>=2014) {
+              } else if (year>=2008) {
                 formData[iControl].setAttribute("data-error", "Les tournois sont ouverts aux plus de 13 ans")
                 formData[iControl].setAttribute("data-error-visible",true);
                 birthdateValue = "";
@@ -211,7 +211,7 @@ function validate(){
     return false;
   } else {
     form.style.display = "none";
-    modalBody.innerHTML = "<p class='validation' style='height:580px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;'>Merci !<br/><br/>Votre réservation a été envoyée</p><button class='btn-submit btn-close' value='Close'>Close</button>"
+    modalBody.innerHTML = "<p class='validation' style='height:580px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;'>Merci !<br/><br/>Votre réservation a été envoyée</p><button class='btn-submit btn-close' value='Close'>Close</button>";
     const closeBtnModal = document.querySelector(".btn-close");
     closeBtnModal.addEventListener('click',closeModal);
     return true;
