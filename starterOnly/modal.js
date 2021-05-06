@@ -157,7 +157,7 @@ for (var i = 0; i < formData.length; i++) {
     switch (idInput) {
     case "first" :
     case "last" : 
-      testInput(/^[A-Za-z -]\D{2,}$/,value);
+      testInput(/^[A-Za-z -]\D{1,}$/,value);
       break;
     case "email" :
       testInput(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/,value);
@@ -175,25 +175,30 @@ for (var i = 0; i < formData.length; i++) {
 //Validation champs non-vide et envoi formulaire
 function validate(){
   if (firstValue == null || firstValue == "" || firstValue == undefined){
-    alert("Merci d'indiquer votre prénom");
+    document.querySelector('#first').parentNode.setAttribute("data-error-visible",true);
+    document.querySelector('#first').parentNode.setAttribute("data-error","Merci d'indiquer votre prénom");
     return false;
   } else if (lastValue == null || lastValue == "" || lastValue == undefined){
-    alert("Merci d'indiquer votre nom");
+    document.querySelector('#last').parentNode.setAttribute("data-error-visible",true);
+    document.querySelector('#last').parentNode.setAttribute("data-error","Merci d'indiquer votre nom");
     return false;
   } else if (emailValue == null || emailValue == "" || emailValue == undefined){
-    alert("Merci d'indiquer votre email");
+    document.querySelector('#email').parentNode.setAttribute("data-error-visible",true);
+    document.querySelector('#email').parentNode.setAttribute("data-error","Merci d'indiquer votre email");
     return false;
   } else if (birthdateValue == null || birthdateValue == "" || birthdateValue == undefined){
-    alert("Merci d'indiquer votre date de naissance");
+    document.querySelector('#birthdate').parentNode.setAttribute("data-error-visible",true);
+    document.querySelector('#birthdate').parentNode.setAttribute("data-error","Merci d'indiquer votre date de naissance");
     return false;
   } else if (quantityValue == null || quantityValue == "" || quantityValue == undefined){
-    alert("Merci d'indiquer le nombre de tournois auxquels vous avez participé");
+    document.querySelector('#quantity').parentNode.setAttribute("data-error-visible",true);
+    document.querySelector('#quantity').parentNode.setAttribute("data-error","Merci d'indiquer le nombre de tournois auxquels vous avez participé");
     return false;
   } else if (locationValue == null || locationValue == "" || locationValue == undefined){
-    alert("Merci d'indiquer la ville dans laquelle s'est déroulé le(s) tournois");
+    document.querySelector('#location1').parentNode.setAttribute("data-error-visible",true);
+    document.querySelector('#location1').parentNode.setAttribute("data-error","Merci d'indiquer la ville dans laquelle s'est déroulé le(s) tournois");
     return false;
   } else if (conditionValue == null || conditionValue == "" || conditionValue == undefined){
-    alert("Merci d'accepter les conditions d'utilisation");
     return false;
   } else {
     form.style.display = "none";
