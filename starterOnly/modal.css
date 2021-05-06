@@ -14,7 +14,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
+  /*background-image: url("background.png");*/
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -27,6 +27,8 @@ p {
 }
 
 img {
+  width: auto;
+  height: auto;
   padding-right: 1rem;
 }
 
@@ -35,7 +37,9 @@ img {
   margin: 3.5%;
 }
 .header-logo {
-    float: left;
+  width: auto;
+  height: auto;
+  float: left;
 }
 .main-navbar {
     float: right;
@@ -54,12 +58,14 @@ img {
 
 .topnav a:hover {
   background-color: #ff0000;
+  text-decoration: underline;
   color: #ffffff;
   border-radius: 15px;
 }
 
 .topnav a.active {
   background-color: #ff0000;
+  text-decoration: underline;
   color: #ffffff;
   border-radius: 15px;
 }
@@ -68,15 +74,30 @@ img {
   display: none;
 }
 
+@media screen and (max-width: 1024px) {
+  .topnav a {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+    color:#fe142f;
+    font-size: 1.8em;
+  }
+}
 @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
+    color:#fe142f;
+    font-size: 1.2em;
+  }
+  img {
+    width: 130px;
+    margin-left: 10px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -92,7 +113,7 @@ img {
 
 
 
- @media screen and (max-width: 540px) {
+ @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
@@ -111,9 +132,16 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
+
+@media screen and (max-width: 768px) {
+  main {
+    width: 100%;
+    padding-left: 0vw;
+    margin-left: 0px;
+  }
+}
+
 
 .modal-btn {
   font-size: 145%;
@@ -226,12 +254,18 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/* 
+.formData[data-error-visible="false"]::after {
+  opacity: 1;
+}
+.formData[data-error-visible="false"] .text-control {
+  border: 2px solid #279e7a;
+}
+/*
 input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
     color: red;
-} */
+}*/
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -332,6 +366,28 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+@media screen and (max-width: 768px){
+  .bground {
+    max-height:705px;
+  }
+  .content {
+    margin-top: 0%;
+    padding-top: 5px;
+  }
+  .modal-body {
+    padding: 5px 8%;
+  }
+  .text-control {
+    height: 38px;
+  }
+  .close {
+    transform: scale(0.5);
+  }
+  .btn-submit,
+  .btn-signup {
+    transform : scale(0.8);
+  }
 }
 /* custom select styles */
 .custom-select {
@@ -448,7 +504,7 @@ input[data-error]::after {
 }
 .btn-signup {
   outline: none;
-  text-transform: capitalize;
+  text-transform: none;
   font-size: 1.3rem;
   padding: 15px 23px;
   margin: 0;
@@ -480,13 +536,16 @@ footer {
 }
 @media screen and (max-width: 800px) {
   .hero-section {
+    width: 100%;
     display: block;
     box-shadow: unset;
   }
   .hero-content {
+    width: 100%;
+    min-width: 100%;
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
   }
   .hero-content::after {
     content: unset;
@@ -495,16 +554,28 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    width: 90%;
+    font-size: 3rem;
     white-space: normal;
+    
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero-text {
-    width: unset;
-    font-size: 1.5rem;
+    width: 90%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    font-weight: lighter;
   }
   .hero-img img {
+    width: 90%;
     border-radius: 10px;
-    margin-top: 40px;
+    margin-top: 20px;
+
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero-section > .btn-signup {
     display: block;
