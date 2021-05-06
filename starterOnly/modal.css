@@ -58,12 +58,14 @@ img {
 
 .topnav a:hover {
   background-color: #ff0000;
+  text-decoration: underline;
   color: #ffffff;
   border-radius: 15px;
 }
 
 .topnav a.active {
   background-color: #ff0000;
+  text-decoration: underline;
   color: #ffffff;
   border-radius: 15px;
 }
@@ -72,6 +74,15 @@ img {
   display: none;
 }
 
+@media screen and (max-width: 1024px) {
+  .topnav a {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+    color:#fe142f;
+    font-size: 1.8em;
+  }
+}
 @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
@@ -86,7 +97,7 @@ img {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -102,7 +113,7 @@ img {
 
 
 
- @media screen and (max-width: 540px) {
+ @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
@@ -190,7 +201,6 @@ main {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
-  min-height: 740px;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
   background: #232323;
@@ -200,14 +210,7 @@ main {
   color: #fff;
   padding-top: 10px;
 }
-@media screen and (max-width: 800px){
-  .content {
-    margin: 0;
-    margin-top: 50px;
-    max-height: 665px;
-    padding-top: 5px;
-  }
-}
+
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
@@ -255,7 +258,7 @@ input {
   opacity: 1;
 }
 .formData[data-error-visible="false"] .text-control {
-  border: 2px solid #67BB44;
+  border: 2px solid #279e7a;
 }
 /*
 input[data-error]::after {
@@ -364,33 +367,22 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
-@media screen and (max-width: 800px){
+@media screen and (max-width: 768px){
+  .bground {
+    max-height:705px;
+  }
   .content {
-    margin: 0;
-    margin-top: 15%;
-    max-height: 660px;
+    margin-top: 0%;
     padding-top: 5px;
   }
   .modal-body {
     padding: 5px 8%;
   }
-  label {
-    font-size: 17px;
-    margin-bottom: 5px;
-  }
   .text-control {
-    font-size: 18px;
-    height: 40px;
-  }
-  .formData[data-error]::after {
-    font-size: 0.5em;
-  }
-  .checkbox-label,
-  .checkbox2-label {
-    font-size: 11px;
+    height: 38px;
   }
   .close {
-    transform: scale(0.6);
+    transform: scale(0.5);
   }
   .btn-submit,
   .btn-signup {
