@@ -175,7 +175,7 @@ for (var i = 0; i < formData.length; i++) {
       testInput(/^\d{4}(-)\d{2}(-)\d{2}$/,value);
       break;
     case "quantity" :
-      testInput(/[1-9]{1,2}/,value);
+      testInput(/[1-9]{1,}/,value);
       break;
     default:;
 }})};
